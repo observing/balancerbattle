@@ -88,7 +88,7 @@ process.once('exit', function exit() {
 });
 
 //
-// Everything is configured,
+// Everything is configured, listen
 //
 app._server.listen(8080, function listening(err) {
   if (!err) return console.log('BalancerBattleApp (flavor: %s) is listening on port 8080', flavor);
