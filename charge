@@ -92,7 +92,11 @@ function message() {
     console.log(' - Received %d messages', messages);
   }
 
-  if (messages === cli.number) {
+  if (+messages === +cli.number) {
+    console.log('');
+    console.log('We have won the battle. (\\/)(;,,;)(\\/) woop woop woop');
+    console.log('');
+
     sockets.forEach(function nuke(socket) {
       socket.close();
     });
