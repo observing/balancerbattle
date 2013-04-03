@@ -41,3 +41,24 @@ real  1m4.579s
 user	0m18.450s
 sys	0m5.370s
 ```
+
+### 20000 requests, pointless
+
+There's not enough memory on the machine to do this properly but what ever ;)
+
+```
+We have won the battle. (\/)(;,,;)(\/) woop woop woop
+
+
+Statistics:
+  - Connections established 20000
+  - Connections disconnected 0
+  - Messages received 20000
+  - Messages send 20000
+  - Messages failed 0
+
+
+real  5m42.187s
+user	1m8.180s
+sys	0m56.040s
+```
