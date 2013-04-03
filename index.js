@@ -57,7 +57,8 @@ function fourohfour(req, res) {
 var connections = 0
   , disconnection = 0
   , messages = 0
-  , failures = 0;
+  , failures = 0
+  , send = 0;
 
 app.on('connection', function connection(socket) {
   ++connections;
@@ -69,8 +70,16 @@ app.on('connection', function connection(socket) {
   socket.on('message', function message(data) {
     ++messages;
 
+    if (messages % 100 === 0) {
+      console.log(' - Received %d messages', messages);
+    }
+
     socket.send(data, function sending(err) {
-      if (err) ++failures;
+      send++;
+      if (!err) return;
+
+      ++failures;
+      console.log('Failed to send due to reasons: ', err.message);
     });
   });
 
@@ -82,15 +91,19 @@ app.on('connection', function connection(socket) {
 //
 // Output some server information.
 //
-process.once('exit', function exit() {
+function stats() {
   console.log('');
   console.log('Statistics:');
   console.log('  - Connections established %d', connections);
   console.log('  - Connections disconnected %d', disconnection);
   console.log('  - Messages received %d', messages);
+  console.log('  - Messages send %d', send);
   console.log('  - Messages failed %d', failures);
   console.log('');
-});
+}
+
+process.once('exit', stats);
+process.once('SIGINT', stats);
 
 //
 // Everything is configured, listen

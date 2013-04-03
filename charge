@@ -41,7 +41,8 @@ console.log('');
 var connections = 0
   , disconnection = 0
   , messages = 0
-  , failures = 0;
+  , failures = 0
+  , send = 0;
 
 while (i--) {
   socket = new Socket(url);
@@ -70,7 +71,11 @@ function opened() {
   var socket = this;
   setTimeout(function timeout() {
     socket.send(new Buffer(cli.buffer).toString(), function sending(err) {
-      if (err) ++failures;
+      send++;
+      if (!err) return;
+
+      ++failures;
+      console.log('Failed to send due to reasons: ', err.message);
     });
   }, cli.timeout);
 }
@@ -83,7 +88,17 @@ function opened() {
 function message() {
   ++messages;
 
-  if (messages === cli.number) process.exit(0);
+  if (messages % 100 === 0) {
+    console.log(' - Received %d messages', messages);
+  }
+
+  if (messages === cli.number) {
+    sockets.forEach(function nuke(socket) {
+      socket.close();
+    });
+
+    process.exit(0);
+  }
 }
 
 /**
@@ -104,6 +119,7 @@ function stats() {
   console.log('  - Connections established %d', connections);
   console.log('  - Connections disconnected %d', disconnection);
   console.log('  - Messages received %d', messages);
+  console.log('  - Messages send %d', send);
   console.log('  - Messages failed %d', failures);
   console.log('');
 }
