@@ -1,0 +1,112 @@
+#!/usr/bin/env node
+'use strict';
+
+//
+// Our WebSocket constructor
+//
+var Socket = require('ws');
+
+//
+// The command-line interface
+//
+var cli = require('commander');
+
+cli
+  .version(require('./package.json').version)
+  .option('-p, --port <portnumb>', 'port number we need to connect to', 8081)
+  .option('-h, --host <hostname>', 'hostname of the WebSocket proxy', 'localhost')
+  .option('-n, --number <number>', 'the amount of connections to establish', 1000)
+  .option('-t, --timeout <number>', 'timeout before we send a message', 2400)
+  .option('-b, --buffer <size>', 'the size of message we send', 1024)
+  .option('-s, --secure', 'establish a secured connection')
+  .parse(process.argv);
+
+//
+// Establish all the connections.
+//
+var url = (cli.secure ? 'wss' : 'ws') +'://'+ cli.host +':'+ cli.port
+  , i = cli.number
+  , sockets = []
+  , socket;
+
+console.log('');
+console.log('Man the battlestations! Prepare for battle!');
+console.log(' - Launch %d attacks on them servers', cli.number);
+console.log(' - Time to burn %s', url);
+console.log('');
+
+//
+// Metrics collection.
+//
+var connections = 0
+  , disconnection = 0
+  , messages = 0
+  , failures = 0;
+
+while (i--) {
+  socket = new Socket(url);
+
+  // Attach the event listeners
+  socket.on('open', opened);
+  socket.on('message', message);
+  socket.on('close', closed);
+
+  sockets.push(socket);
+}
+
+/**
+ * The WebSocket is open, fire at will!
+ *
+ * @api private
+ */
+function opened() {
+  ++connections;
+
+  // Give a little update
+  if (connections % 100 === 0) {
+    console.log('Established %d connections', connections)
+  }
+
+  var socket = this;
+  setTimeout(function timeout() {
+    socket.send(new Buffer(cli.buffer).toString(), function sending(err) {
+      if (err) ++failures;
+    });
+  }, cli.timeout);
+}
+
+/**
+ * Message received from server.
+ *
+ * @api private
+ */
+function message() {
+  ++messages;
+
+  if (messages === cli.number) process.exit(0);
+}
+
+/**
+ * WebSocket closed.
+ *
+ * @api private
+ */
+function closed() {
+  ++disconnection;
+}
+
+//
+// Output some server information.
+//
+function stats() {
+  console.log('');
+  console.log('Statistics:');
+  console.log('  - Connections established %d', connections);
+  console.log('  - Connections disconnected %d', disconnection);
+  console.log('  - Messages received %d', messages);
+  console.log('  - Messages failed %d', failures);
+  console.log('');
+}
+
+process.once('exit', stats);
+process.once('SIGINT', stats);

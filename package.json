@@ -12,6 +12,7 @@
   "dependencies": {
     "ws": "~0.4.25",
     "http-proxy": "~0.10.0",
-    "spdy": "~1.5.0"
+    "spdy": "~1.5.0",
+    "commander": "~1.1.1"
   }
 }

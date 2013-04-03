@@ -56,17 +56,21 @@ function fourohfour(req, res) {
 //
 var connections = 0
   , disconnection = 0
+  , messages = 0
   , failures = 0;
 
 app.on('connection', function connection(socket) {
-  var id = ++connections;
+  ++connections;
+
+  if (connections % 100 === 0) {
+    console.log('Received %d connections', connections);
+  }
 
   socket.on('message', function message(data) {
-    socket.send(data, function sending(err) {
-      if (!err) return;
+    ++messages;
 
-      ++failures;
-      console.error('Failed to send a message to connection #'+ id);
+    socket.send(data, function sending(err) {
+      if (err) ++failures;
     });
   });
 
@@ -83,7 +87,8 @@ process.once('exit', function exit() {
   console.log('Statistics:');
   console.log('  - Connections established %d', connections);
   console.log('  - Connections disconnected %d', disconnection);
-  console.log('  - Message failures %d', failures);
+  console.log('  - Messages received %d', messages);
+  console.log('  - Messages failed %d', failures);
   console.log('');
 });
 
