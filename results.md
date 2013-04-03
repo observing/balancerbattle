@@ -62,3 +62,24 @@ real  5m42.187s
 user	1m8.180s
 sys	0m56.040s
 ```
+
+# nginx
+
+### 5000
+
+```
+We have won the battle. (\/)(;,,;)(\/) woop woop woop
+
+
+Statistics:
+  - Connections established 5000
+  - Connections disconnected 0
+  - Messages received 5000
+  - Messages send 5000
+  - Messages failed 0
+
+
+real  0m23.204s
+user	0m9.500s
+sys	0m1.930s
+```
