@@ -33,10 +33,15 @@ var fs = require('fs')
 // Setup the HTTP proxy
 //
 var Proxy = require('http-proxy').HttpProxy
-  , forward = new Proxy({ target: { host: 'localhost', port: 8080 }})
+  , forward = new Proxy({
+        target: { host: 'localhost', port: 8080 }
+      , maxSockets: 32000
+    })
   , server = !secure
     ? server.createServer(regular)
     : server.createServer(options, regular);
+
+server.on('upgrade', upgrade);
 
 /**
  * Proxy regular HTTP.
