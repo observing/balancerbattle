@@ -79,8 +79,12 @@ app.on('connection', function connection(socket) {
       if (!err) return;
 
       ++failures;
-      console.log('Failed to send due to reasons: ', err.message);
+      console.error('Error: Failed to send due to reasons: ', err.message);
     });
+  });
+
+  socket.on('error', function fucked(err) {
+    console.error('Error: Failure on the socket', err.message);
   });
 
   socket.on('close', function close() {

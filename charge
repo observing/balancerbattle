@@ -36,6 +36,11 @@ console.log(' - Time to burn %s', url);
 console.log('');
 
 //
+// The actual message that we want to send
+//
+var dataz = new Buffer(cli.buffer).toString();
+
+//
 // Metrics collection.
 //
 var connections = 0
@@ -70,7 +75,7 @@ function opened() {
 
   var socket = this;
   setTimeout(function timeout() {
-    socket.send(new Buffer(cli.buffer).toString(), function sending(err) {
+    socket.send(dataz, function sending(err) {
       send++;
       if (!err) return;
 
