@@ -47,6 +47,7 @@ var connections = 0
   , disconnection = 0
   , messages = 0
   , failures = 0
+  , errors = 0
   , send = 0;
 
 while (i--) {
@@ -56,6 +57,7 @@ while (i--) {
   socket.on('open', opened);
   socket.on('message', message);
   socket.on('close', closed);
+  socket.on('error', errored);
 
   sockets.push(socket);
 }
@@ -83,6 +85,16 @@ function opened() {
       console.log('Failed to send due to reasons: ', err.message);
     });
   }, cli.timeout);
+}
+
+/**
+ * The WebSocket connection had an error.
+ *
+ * @param {Error} err
+ * @api private
+ */
+function errored() {
+  ++errors;
 }
 
 /**
@@ -130,6 +142,7 @@ function stats() {
   console.log('  - Messages received %d', messages);
   console.log('  - Messages send %d', send);
   console.log('  - Messages failed %d', failures);
+  console.log('  - Errors %d', errors);
   console.log('');
 }
 
