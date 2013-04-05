@@ -42,41 +42,64 @@ And last but not least, the nginx.conf
 
 ```conf
 worker_processes  1;
-worker_rlimit_nofile 200000;
 
 events {
   worker_connections 20000;
-  use epoll;
 }
-
 
 http {
   include       mime.types;
   default_type  application/octet-stream;
 
+  #
+  # Some default configuration.
+  #
   sendfile           on;
   tcp_nopush         on;
   keepalive_timeout  65;
+
+  #
+  # A list with load balancing backends hashed on IP for sticky load balancing.
+  #
+  upstream realtime {
+    ip_hash;
+
+    server localhost:8080;
+  }
 
   server {
     listen       8082;
     server_name  localhost;
 
-    location / {
-      proxy_pass http://localhost:8080;
+    #
+    # Proxy settings
+    #
+    proxy_pass http://realtime
+    proxy_redirect      off;
+    proxy_set_header    Host              $host;
+    proxy_set_header    X-Real-IP         $remote_addr;
+    proxy_set_header    X-Forwarded-For   $proxy_add_x_forwarded_for;
+    proxy_set_header    X-Forwarded-Proto $scheme;
 
-      # Proxy settings
-      proxy_redirect off;
-      proxy_set_header   Host              $host;
-      proxy_set_header   X-Real-IP         $remote_addr;
-      proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
-      proxy_set_header   X-Forwarded-Proto $scheme;
+    # WebSocket specific
+    proxy_http_version 1.1;
+    proxy_set_header    Upgrade           $http_upgrade;
+    proxy_set_header    Connection        "upgrade";
 
-      # WebSocket specific
-      proxy_http_version 1.1;
-      proxy_set_header   Upgrade           $http_upgrade;
-      proxy_set_header   Connection        "upgrade";
-    }
+    #
+    # Specific for comet or long running HTTP requests, don't buffer up the
+    # response from origin servers but send them directly to the client.
+    #
+    proxy_buffering     off;
+
+    #
+    # Bump the timeout's so someting sensible so our connections don't
+    # disconnect automatically. We've set it to 12 hours.
+    #
+    proxy_connect_timeout 43200000;
+    proxy_read_timeout    43200000;
+    proxy_send_timeout    43200000;
+    timeout               43200000;
   }
 
   # HTTPS server
