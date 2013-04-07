@@ -107,13 +107,18 @@ function stats() {
 }
 
 process.once('exit', stats);
-process.once('SIGINT', stats);
+process.once('SIGINT', process.exit);
 
 //
 // Everything is configured, listen
 //
-app._server.listen(8080, function listening(err) {
-  if (!err) return console.log('BalancerBattleApp (flavor: %s) is listening on port 8080', flavor);
+var port = +process.argv[2] || 8080;
+app._server.listen(port, function listening(err) {
+  if (!err) {
+    return console.log(
+      'BalancerBattleApp (flavor: %s) is listening on port %d', flavor, port
+    );
+  }
 
   console.error('Failed to listen on port 8080, due to reasons');
   console.error('  - '+ err.message);
