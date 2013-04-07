@@ -1,5 +1,3 @@
-'use strict';
-
 //
 // Load in every server flavor, so all server tests have the same initial memory
 // consumption.
@@ -7,6 +5,17 @@
 var https = require('https')
   , http = require('http')
   , spdy = require('spdy');
+
+//
+// Cluster all the things.
+//
+var workers = require('os').cpus().length
+  , cluster = require('cluster')
+  , master = cluster.isMaster;
+
+if (master) {
+  while (workers--) cluster.fork();
+} else {
 
 //
 // Select the server based on the flavor env variable.
@@ -69,10 +78,14 @@ function upgrade(req, res, head) {
 //
 // Everything is configured, listen
 //
-server.listen(8081, function listening(err) {
+var port = +process.argv[2] || 8081
+  , backlog = 3000;
+
+server.listen(port, backlog, function listening(err) {
   if (!err) return console.log('BalancerBattleProxy (flavor: %s) is listening on port 8081', flavor);
 
   console.error('Failed to listen on port 8081, due to reasons');
   console.error('  - '+ err.message);
   process.exit(1);
 });
+}

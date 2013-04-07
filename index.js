@@ -8,7 +8,7 @@ var WebSocketServer = require('ws').Server
   , spdy = require('spdy');
 
 //
-// Cluster all the things;
+// Cluster all the things.
 //
 var workers = require('os').cpus().length
   , cluster = require('cluster')
