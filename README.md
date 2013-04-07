@@ -21,3 +21,8 @@ skills.
 To be tested:
 
 - HAProxy (with stud?)
+
+## Results
+
+The test results are in the `results` folder for this repo. The setup
+information for these benchmarks is described in the setup.md.
