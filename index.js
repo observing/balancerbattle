@@ -1,5 +1,3 @@
-'use strict';
-
 //
 // Load in every server flavor, so all server tests have the same initial memory
 // consumption.
@@ -8,6 +6,17 @@ var WebSocketServer = require('ws').Server
   , https = require('https')
   , http = require('http')
   , spdy = require('spdy');
+
+//
+// Cluster all the things;
+//
+var workers = require('os').cpus().length
+  , cluster = require('cluster')
+  , master = cluster.isMaster;
+
+if (master) {
+  while (workers--) cluster.fork();
+} else {
 
 //
 // Select the server based on the flavor env variable.
@@ -112,8 +121,10 @@ process.once('SIGINT', process.exit);
 //
 // Everything is configured, listen
 //
-var port = +process.argv[2] || 8080;
-app._server.listen(port, function listening(err) {
+var port = +process.argv[2] || 8080
+  , backlog = 3000;
+
+app._server.listen(port, backlog, function listening(err) {
   if (!err) {
     return console.log(
       'BalancerBattleApp (flavor: %s) is listening on port %d', flavor, port
@@ -124,3 +135,4 @@ app._server.listen(port, function listening(err) {
   console.error('  - '+ err.message);
   process.exit(1);
 });
+}
