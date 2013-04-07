@@ -13,7 +13,7 @@ var workers = require('os').cpus().length
   , cluster = require('cluster')
   , master = cluster.isMaster;
 
-if (master) {
+if (master && workers > 1) {
   while (workers--) cluster.fork();
 } else {
 
