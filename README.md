@@ -264,7 +264,7 @@ instead of `stub` and `haproxy`
 ### HTTP
 
 Proxy          | Connections | Handshaken (mean) | Latency (mean) | Total
------------------------------------------------------------------------------------
+---------------|-------------|-------------------|----------------|----------------
 http-proxy     | 10k         | 293 ms            | 44 ms          | 30168 ms
 nginx          | 10k         | 252 ms            | 16 ms          | 28433 ms
 haproxy        | 10k         | 209 ms            | 18 ms          | 26974 ms
@@ -273,7 +273,7 @@ control        | 10k         | 189 ms            | 16 ms          | 25310 ms
 ### HTTPS
 
 Proxy          | Connections | Handshaken (mean) | Latency (mean) | Total
------------------------------------------------------------------------------------
+---------------|-------------|-------------------|----------------|----------------
 http-proxy     | 10k         | 679 ms            | 62 ms          | 68670 ms
 nginx          | 10k         | 470 ms            | 30 ms          | 50180 ms
 haproxy        | 10k         | 968 ms            | 55 ms          | 102037 ms
