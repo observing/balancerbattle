@@ -4,6 +4,8 @@ the machine and install it's dependencies:
 
 All packages were updated before installation by running;
 
+## Basic installation
+
 ```
 apt-get upgrade
 ```
@@ -21,6 +23,8 @@ cloning the Github repository. The `v0.8.19` branch was installed as most
 modules are not yet running stable under node's recent stable releases. I did
 not want it to compromise the integrity of these tests.
 
+## Node.js
+
 ```
 git clone git://github.com/joyent/node.git
 cd node
@@ -29,6 +33,8 @@ git checkout v0.8.19
 make
 make install
 ```
+
+## Nginx
 
 Up next was installing `nginx`, we installed the latest development release
 which was `1.3.15` at the time of this writing.
@@ -79,6 +85,8 @@ Configuration summary
   nginx http scgi temporary files: "scgi_temp"
 ```
 
+## System tuning
+
 After this it's just a simple `make` && `make install`. Now that all dependencies
 were installed we need to do some basic socket tuning.
 
@@ -103,6 +111,8 @@ the root of this repository. Added this file at `/etc/nginx/nginx.conf` Now we
 have finally got everything installed and we can continue with testing the
 server using `thor`.
 
+## Haproxy
+
 HA proxy supports SSL offloading since 1.5 (development branch) so we have to
 compile that form source as well. We fetch the latest build and configure it.
 
@@ -115,3 +125,21 @@ make install
 ```
 
 The HAProxy was run using `haproxy -f ./haproxy.cfg`.
+
+## Stud
+
+The latest stud was taken from github by closing the repository. As stud depends
+on libev to be installed on the system we need to install as well:
+
+```
+apt-get install libev-dev
+```
+
+Now we can install stud
+
+```
+git clone git://github.com/bumptech/stud.git
+cd stud
+make
+make install
+```
