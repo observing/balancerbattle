@@ -102,3 +102,16 @@ After this the configuration was updated with details from `nginx.conf` which is
 the root of this repository. Added this file at `/etc/nginx/nginx.conf` Now we
 have finally got everything installed and we can continue with testing the
 server using `thor`.
+
+HA proxy supports SSL offloading since 1.5 (development branch) so we have to
+compile that form source as well. We fetch the latest build and configure it.
+
+```
+wget http://haproxy.1wt.eu/download/1.5/src/devel/haproxy-1.5-dev18.tar.gz
+tar xzvf haproxy-1.5-dev18.tar.gz
+cd haproxy-1.5-dev18
+make TARGET=linux26 USE_OPENSSL=1
+make install
+```
+
+The HAProxy was run using `haproxy -f ./haproxy.cfg`.
