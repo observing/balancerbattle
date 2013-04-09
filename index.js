@@ -10,12 +10,17 @@ var WebSocketServer = require('ws').Server
 //
 // Cluster all the things.
 //
-var workers = require('os').cpus().length
+var workers = +process.argv[3] || require('os').cpus().length
   , cluster = require('cluster')
   , master = cluster.isMaster;
 
-if (master) {
-  while (workers--) cluster.fork();
+if (master && workers > 1) {
+  console.log('Starting with %d worker processes', workers);
+
+  while (workers--) {
+    cluster.fork();
+  }
+
 } else {
 
 //
