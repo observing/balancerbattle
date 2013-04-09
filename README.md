@@ -114,10 +114,10 @@ make
 make install
 ```
 
-### HAPprox
+### HAProxy
 
-HAproxy was already able to proxy WebSockets in `tcp mode` but it's now also
-possible to do so in `http mode`. HAproxy also got support for `HTTPS`
+HAProxy was already able to proxy WebSockets in `tcp mode` but it's now also
+possible to do so in `http mode`. HAProxy also got support for `HTTPS`
 termination. So again, we need to install the development branch.
 
 ```
