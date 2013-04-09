@@ -17,10 +17,18 @@ were using. The server that ran the proxy remains unchanged during this test.
 
 ## nginx
 
+- Received a peak memory of 26mb for 1k connections with a CPU blasting around
+  10 - 20%
+- Received a peak memory of 35mb for 2k connections with a CPU blasting arnoud
+  10 - 20%
 - Received a peak memory of 35mb for 5k connections with a CPU blasting around
-  10 - 17%
+  10 - 20%
 
 ## haproxy
 
+- Received a peak memory of 35mb for 1k connections with a CPU blasting around
+  14 - 30%
+- Received a peak memory of 50mb for 2k connections with a CPU blasting around
+  14 - 30%
 - Received a peak memory of 53mb for 5k connections with a CPU blasting around
   20 - 30%
