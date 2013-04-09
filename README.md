@@ -114,10 +114,10 @@ make
 make install
 ```
 
-### HAPprox
+### HAPproxy
 
-HAproxy was already able to proxy WebSockets in `tcp mode` but it's now also
-possible to do so in `http mode`. HAproxy also got support for `HTTPS`
+HAProxy was already able to proxy WebSockets in `tcp mode` but it's now also
+possible to do so in `http mode`. HAProxy also got support for `HTTPS`
 termination. So again, we need to install the development branch.
 
 ```
@@ -194,7 +194,7 @@ And for the equal results:
 
 Before each test all WebSocketServer is reset and the Proxy re-initiated. Thor
 will hammer all the Proxy server with `x` amount of connection with a
-`cuncurrency` of 100. For each established connection one single UTF-8 message
+`concurrency` of 100. For each established connection one single UTF-8 message
 is send and received. After the message is received the connection is closed.
 
 ## Running
@@ -243,7 +243,7 @@ friends it was actually a one line change in the config. I had the wrong
 `openssl s_client -connect server:ip` it was all good and used `RC4` by default
 which is really fast.
 
-Up next was HAproxy, it has the same performance profile as NGINX, but lower on
+Up next was HAProxy, it has the same performance profile as NGINX, but lower on
 the memory it only required 7MB of memory. The biggest difference was when we
 tested with HTTPS. It's was really show and no where near the performance of
 Nginx. Hopefully this will be resolved as it's a development branch we are
@@ -259,7 +259,7 @@ care of the SSL offloading.
 `nginx` and `haproxy` were really close, it's almost not significant enough to
 say that one is faster or better then the other. But if you look at it from an
 operations stand point. It's easier to deploy and manage a single `nginx` server
-instead of `stub` and `haproxy`
+instead of `stud` and `haproxy`
 
 ### HTTP
 
