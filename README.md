@@ -234,6 +234,12 @@ if you compare it to control test. The HTTPS test was the slowest of all, but
 that was expected as Node.js sucks hairy monkey balls in SSL. Not to mention
 that will put your event loop to a grinding halt when it's under severe stress.
 
+There is a [pull request](https://github.com/nodejitsu/node-http-proxy/pull/370)
+for the `http-proxy` that will drasticly reduce memory consumption. I've
+manually applied the patch and saw the memory consumption get cut in half. It's
+still using a lot more compared to nginx after this patch that can easily be
+explained because they are all build in pure c.
+
 I had high hopes for Nginx and it did not let me down. It had a peak memory of
 10MB and it was really fast. The first time I tested Nginx, it had a horrible
 performance. Node was even faster in SSL then Nginx, I felt like failure, I
