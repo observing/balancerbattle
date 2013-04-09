@@ -251,7 +251,7 @@ which is really fast.
 
 Up next was HAProxy, it has the same performance profile as NGINX, but lower on
 the memory it only required 7MB of memory. The biggest difference was when we
-tested with HTTPS. It's was really show and no where near the performance of
+tested with HTTPS. It's was really slow and no where near the performance of
 Nginx. Hopefully this will be resolved as it's a development branch we are
 testing. When we put `stud` in front of server it gets closer the performance of
 Nginx.
