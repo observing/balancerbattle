@@ -114,10 +114,10 @@ make
 make install
 ```
 
-### HAPproxy
+### HAPprox
 
-HAProxy was already able to proxy WebSockets in `tcp mode` but it's now also
-possible to do so in `http mode`. HAProxy also got support for `HTTPS`
+HAproxy was already able to proxy WebSockets in `tcp mode` but it's now also
+possible to do so in `http mode`. HAproxy also got support for `HTTPS`
 termination. So again, we need to install the development branch.
 
 ```
@@ -249,12 +249,15 @@ friends it was actually a one line change in the config. I had the wrong
 `openssl s_client -connect server:ip` it was all good and used `RC4` by default
 which is really fast.
 
-Up next was HAProxy, it has the same performance profile as NGINX, but lower on
-the memory it only required 7MB of memory. The biggest difference was when we
+Up next was HAproxy, it has the same performance profile as NGINX, but lower on
+the memory it only required 7MB of memory. ~~The biggest difference was when we
 tested with HTTPS. It's was really slow and no where near the performance of
 Nginx. Hopefully this will be resolved as it's a development branch we are
-testing. When we put `stud` in front of server it gets closer the performance of
-Nginx.
+testing.~~ Made the same mistake as I did with Nginx, configured the wrong
+ciphers which was kindly pointed out on
+[HackerNews](https://news.ycombinator.com/item?id=5517258). In addition to
+testing HTTPS we also put `stud` in front of it to see what kind of performance
+it would yield.
 
 ## Conclusions
 
@@ -276,15 +279,19 @@ nginx          | 10k         | 252 ms            | 16 ms          | 28433 ms
 haproxy        | 10k         | 209 ms            | 18 ms          | 26974 ms
 control        | 10k         | 189 ms            | 16 ms          | 25310 ms
 
+**Winner**: Both Nginx and HAProxy are really fast and close to each other.
+
 ### HTTPS
 
 Proxy          | Connections | Handshaken (mean) | Latency (mean) | Total
 ---------------|-------------|-------------------|----------------|----------------
 http-proxy     | 10k         | 679 ms            | 62 ms          | 68670 ms
 nginx          | 10k         | 470 ms            | 30 ms          | 50180 ms
-haproxy        | 10k         | 968 ms            | 55 ms          | 102037 ms
+haproxy        | 10k         | 464 ms            | 25 ms          | 50058 ms
 haproxy + stud | 10k         | 492 ms            | 42 ms          | 52403 ms
 control        | 10k         | 703 ms            | 65 ms          | 71500 ms
+
+**Winner**: Both Nginx and HAProxy are really fast and close to each other.
 
 All test results are available at:
 
