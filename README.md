@@ -11,6 +11,13 @@ The following technologies were tested:
 - [HAProxy](http://haproxy.1wt.eu/), version: 1.5-dev18 (development release)
 - Nothing, just the plain echo server that was used as a control test.
 
+There have been some questions about including
+[hipache](https://github.com/dotcloud/hipache). The reason that I have not
+included them in my tests is because it's build upon the
+[http-proxy](https://github.com/dotcloud/hipache/blob/master/package.json#L18-L23).
+They are currently using a fork of the project but it doesn't contain any
+performance related patches.
+
 3 different, separate servers were used for testing. All these servers are
 hosted at [joyent](http://joyent.com).
 
@@ -114,10 +121,10 @@ make
 make install
 ```
 
-### HAPprox
+### HAPproxy
 
-HAproxy was already able to proxy WebSockets in `tcp mode` but it's now also
-possible to do so in `http mode`. HAproxy also got support for `HTTPS`
+HAProxy was already able to proxy WebSockets in `tcp mode` but it's now also
+possible to do so in `http mode`. HAProxy also got support for `HTTPS`
 termination. So again, we need to install the development branch.
 
 ```
@@ -148,7 +155,7 @@ Nginx you can copy & paste the `nginx.conf` from the root of this repository to
 ## Kernel tuning
 
 After all the proxies are installed we need to do some socket tuning. This
-information was generously stolen from the internets:
+information was generously stolen from the internet:
 
 ```
 vim /etc/sysctl.conf
@@ -235,10 +242,10 @@ that was expected as Node.js sucks hairy monkey balls in SSL. Not to mention
 that will put your event loop to a grinding halt when it's under severe stress.
 
 There is a [pull request](https://github.com/nodejitsu/node-http-proxy/pull/370)
-for the `http-proxy` that will drasticly reduce memory consumption. I've
+for the `http-proxy` that will drastically reduce memory consumption. I've
 manually applied the patch and saw the memory consumption get cut in half. It's
-still using a lot more compared to nginx after this patch that can easily be
-explained because they are all build in pure c.
+still using a lot more compared to Nginx after this patch that can easily be
+explained because they are all build in pure C.
 
 I had high hopes for Nginx and it did not let me down. It had a peak memory of
 10MB and it was really fast. The first time I tested Nginx, it had a horrible
@@ -249,7 +256,7 @@ friends it was actually a one line change in the config. I had the wrong
 `openssl s_client -connect server:ip` it was all good and used `RC4` by default
 which is really fast.
 
-Up next was HAproxy, it has the same performance profile as NGINX, but lower on
+Up next was HAProxy, it has the same performance profile as NGINX, but lower on
 the memory it only required 7MB of memory. ~~The biggest difference was when we
 tested with HTTPS. It's was really slow and no where near the performance of
 Nginx. Hopefully this will be resolved as it's a development branch we are
