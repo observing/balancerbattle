@@ -121,7 +121,7 @@ make
 make install
 ```
 
-### HAPprox
+### HAProxy
 
 HAProxy was already able to proxy WebSockets in `tcp mode` but it's now also
 possible to do so in `http mode`. HAProxy also got support for `HTTPS`
