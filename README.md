@@ -79,6 +79,10 @@ back end servers but it did not support WebSockets. This got recently added in t
 the development branch of Nginx. There for we installed the latest development
 version and compiled from source:
 
+**Please note that since writing and testing this, nginx 1.4.0 was shipped and
+has support for WebSockets. So if you are reading this and want to deploy in
+production I would advice you to use 1.4.0 instead of the development builds**
+
 ```
 wget http://nginx.org/download/nginx-1.3.15.tar.gz
 tar xzvf nginx-1.3.15.tar.gz
