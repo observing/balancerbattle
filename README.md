@@ -125,7 +125,7 @@ make
 make install
 ```
 
-### HAPproxy
+### HAProxy
 
 HAProxy was already able to proxy WebSockets in `tcp mode` but it's now also
 possible to do so in `http mode`. HAProxy also got support for `HTTPS`
@@ -307,6 +307,17 @@ control        | 10k         | 703 ms            | 65 ms          | 71500 ms
 All test results are available at:
 
 https://github.com/observing/balancerbattle/tree/master/results
+
+#### Notes
+
+- The performance of the `http-proxy` can vary based on your platform. On Debian
+  distributions it's know to add a 200ms latency on top of it. See [305] & [314]
+- NGINX has released 1.4 which contains WebSocket support by default. There are
+  no major changes made between 1.4 and the version that is tested here so these
+  results are valid for the 1.4 release as well.
+
+[305]: https://github.com/nodejitsu/node-http-proxy/issues/305
+[314]: https://github.com/nodejitsu/node-http-proxy/issues/314
 
 ## Contributions
 
