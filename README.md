@@ -279,7 +279,9 @@ care of the SSL offloading.
 `nginx` and `haproxy` were really close, it's almost not significant enough to
 say that one is faster or better then the other. But if you look at it from an
 operations stand point. It's easier to deploy and manage a single `nginx` server
-instead of `stud` and `haproxy`
+instead of `stud` and `haproxy`.
+
+**Please note that lower means better in these results tables.**
 
 ### HTTP
 
