@@ -10,7 +10,7 @@ were using. The server that ran the proxy remains unchanged during this test.
 ## http-proxy
 - Received a peak memory of 152mb for 1k connections with a CPU blasting around
   60 - 99%
-- Received a peak memory of 280mb for 1k connections with a CPU blasting around
+- Received a peak memory of 280mb for 2k connections with a CPU blasting around
   60 - 99%
 - Received a peak of memory 450mb for 5k connections with a CPU blasting around
   60 - 99%
