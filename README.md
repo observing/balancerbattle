@@ -76,7 +76,7 @@ and the `http-proxy` and all it's dependencies are installed automatically.
 
 Nginx is already a widely deployed server. It supports proxing of to different
 back end servers but it did not support WebSockets. This got recently added in to
-the development branch of Nginx. There for we installed the latest development
+the development branch of Nginx. Therefore we installed the latest development
 version and compiled from source:
 
 **Please note that since writing and testing this, nginx 1.4.0 was shipped and
