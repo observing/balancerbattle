@@ -1,3 +1,5 @@
+'use strict';
+
 //
 // Load in every server flavor, so all server tests have the same initial memory
 // consumption.
