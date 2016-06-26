@@ -277,7 +277,7 @@ If you deploy this in production I advice to run `stud` in front of it to take
 care of the SSL offloading.
 
 `nginx` and `haproxy` were really close, it's almost not significant enough to
-say that one is faster or better then the other. But if you look at it from an
+say that one is faster or better than the other. But if you look at it from an
 operations stand point. It's easier to deploy and manage a single `nginx` server
 instead of `stud` and `haproxy`.
 
