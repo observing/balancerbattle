@@ -10,9 +10,9 @@
   "author": "Arnout Kazemier <opensource@observe.it>",
   "license": "MIT",
   "dependencies": {
-    "ws": "0.6.x",
-    "http-proxy": "1.8.x",
-    "spdy": "1.30.0",
-    "commander": "2.6.x"
+    "ws": "~1.1.1",
+    "http-proxy": "~1.15.2",
+    "spdy": "3.4.4",
+    "commander": "~2.9.0"
   }
 }
