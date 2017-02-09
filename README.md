@@ -238,7 +238,7 @@ FLAVOR=http node index.js
 ## Results
 
 The `http-proxy` lives up to it's name, it proxies requests and does it quite
-fast. But as it's build on top of Node.js it quite heavy on the memory. Just a
+fast. But as it's build on top of Node.js it's quite heavy on the memory. Just a
 simple node process starts with a 12MB of memory. For the 10K requests it took
 around `70mb` of memory. The overhead was of the HTTP proxy was about 5 seconds
 if you compare it to control test. The HTTPS test was the slowest of all, but
@@ -254,7 +254,7 @@ explained because they are all build in pure C.
 I had high hopes for Nginx and it did not let me down. It had a peak memory of
 10MB and it was really fast. The first time I tested Nginx, it had a horrible
 performance. Node was even faster in SSL then Nginx, I felt like failure, I
-genuinely sucked a configuring Nginx. But after some quick tips from some
+genuinely sucked at configuring Nginx. But after some quick tips from some
 friends it was actually a one line change in the config. I had the wrong
 `ciphers` configured. After some quick tweaking and a confirmation using
 `openssl s_client -connect server:ip` it was all good and used `RC4` by default
