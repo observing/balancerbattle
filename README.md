@@ -238,7 +238,7 @@ FLAVOR=http node index.js
 ## Results
 
 The `http-proxy` lives up to it's name, it proxies requests and does it quite
-fast. But as it's build on top of Node.js it quite heavy on the memory. Just a
+fast. But as it's build on top of Node.js it's quite heavy on the memory. Just a
 simple node process starts with a 12MB of memory. For the 10K requests it took
 around `70mb` of memory. The overhead was of the HTTP proxy was about 5 seconds
 if you compare it to control test. The HTTPS test was the slowest of all, but
